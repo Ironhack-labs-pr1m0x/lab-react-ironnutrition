@@ -10,6 +10,8 @@ export default class FoodBox extends React.Component {
       name: ev.target.getAttribute('data-food-identifier'),
       quantity: this.state.quantity,
     });
+
+    this.setState({ state: 1 });
   };
 
   handleSelect = (ev) => {
