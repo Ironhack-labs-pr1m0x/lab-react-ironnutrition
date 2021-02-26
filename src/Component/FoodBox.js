@@ -11,7 +11,7 @@ export default class FoodBox extends React.Component {
       quantity: this.state.quantity,
     });
 
-    this.setState({ state: 1 });
+    this.setState({ quantity: 1 });
   };
 
   handleSelect = (ev) => {
