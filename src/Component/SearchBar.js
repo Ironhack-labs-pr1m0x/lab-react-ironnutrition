@@ -6,8 +6,8 @@ export default function SearchBar(props) {
   };
 
   return (
-    <div>
-      <label htmlFor="search"></label>
+    <div style={{ padding: '25px' }}>
+      <label htmlFor="search">Search</label>
       <input
         onChange={handleInput}
         name="search"
