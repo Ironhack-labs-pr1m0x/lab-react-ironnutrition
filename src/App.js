@@ -4,6 +4,7 @@ import '../node_modules/bulma/css/bulma.min.css';
 import FoodBox from './Component/FoodBox';
 import FoodDiary from './Component/FoodDiary';
 import ModalForm from './Component/ModalForm';
+import SearchBar from './Component/SearchBar';
 // Data
 import food from './foods.json';
 
@@ -11,8 +12,10 @@ class App extends React.Component {
   state = {
     showModal: false,
     foodList: food,
+    foodListFilter: food,
     foodDiary: {},
     totalCal: 0,
+    searchInput: '',
   };
 
   handleFoodDiary = ({ name, quantity }) => {
@@ -34,12 +37,33 @@ class App extends React.Component {
     });
   };
 
+  handleSearchInput = (searchInput) => {
+    this.setState({ searchInput });
+    this.filterFoodList();
+  };
+
   handleModal = () => {
     this.setState({ showModal: !this.state.showModal });
   };
 
   createFood = (childData) => {
-    this.setState({ foodList: [childData, ...this.state.foodList] });
+    this.setState({
+      foodList: [childData, ...this.state.foodList],
+      foodListFilter: [childData, ...this.state.foodList],
+    });
+  };
+
+  filterFoodList = () => {
+    this.setState((state, props) => {
+      const hcFood = [...this.state.foodListFilter];
+      const filtered = hcFood.filter((food) => {
+        return food.name
+          .toLowerCase()
+          .includes(state.searchInput.toLowerCase());
+      });
+
+      return { foodList: filtered };
+    });
   };
 
   render() {
@@ -58,6 +82,10 @@ class App extends React.Component {
       <div>
         <button onClick={this.handleModal}>ADD NEW FOOD</button>
         {this.state.showModal && <ModalForm addFood={this.createFood} />}
+        <SearchBar
+          searchInput={this.state.searchInput}
+          handleSearchInput={this.handleSearchInput}
+        />
         <div style={{ display: 'flex' }}>
           <div>{foodElements}</div>
           <div style={{ padding: '25px' }}>

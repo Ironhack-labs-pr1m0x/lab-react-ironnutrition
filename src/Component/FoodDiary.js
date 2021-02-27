@@ -8,7 +8,7 @@ export default function FoodDiary({ foodDiary }) {
 
     return (
       <li key={index}>
-        {key}: {foodDiary[key]}
+        {key}: {foodDiary[key]} cal
       </li>
     );
   });
